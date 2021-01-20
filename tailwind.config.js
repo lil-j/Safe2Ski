@@ -2,12 +2,13 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   purge: {
-    content: ['./pages/**/*.js', './components/**/*.js']},
-  options: {
-    safelist:{
-      standard: [/^bg-(green|cyan|purple|pink)-(200|900)$/]
-  }
-},
+    content: ['./pages/**/*.js', './components/**/*.js'],
+    options: {
+      safelist: {
+        standard: [/^(bg|text)-(green|cyan|purple|pink)-(200|900)$/]
+      }
+    }
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
