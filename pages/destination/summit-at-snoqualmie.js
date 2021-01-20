@@ -27,7 +27,7 @@ export async function getStaticProps() {
     const lastUpdated = moment().format();
     const res = await fetch('https://www.wsdot.com/Traffic/api/MountainPassConditions/MountainPassConditionsREST.svc/GetMountainPassConditionAsJon?AccessCode=de941f67-18e0-4909-83cb-a5d68904821e&PassConditionID=11')
     const currentConditions = await res.json()
-    console.log(currentConditions)
+    // console.log(currentConditions)
     // By returning { props: { posts } }, the Blog component
     // will receive `posts` as a prop at build time
     return {
