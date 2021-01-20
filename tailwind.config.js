@@ -5,7 +5,7 @@ module.exports = {
     content: ['./pages/**/*.js', './components/**/*.js'],
     options: {
       safelist: {
-        standard: [/^(bg|text)-(green|cyan|purple|pink)-(200|900)$/]
+        standard: [/^(bg|text)-(green|cyan|purple|pink|yellow)-(200|900)$/]
       }
     }
   },
