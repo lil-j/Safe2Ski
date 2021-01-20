@@ -8,7 +8,7 @@ export default function Home() {
             <div className="text-center mb-24">
                 <h3 className="text-blueGray-500 dark:text-white uppercase tracking-widest">Safe2Ski</h3>
                 <h1 className="font-extrabold text-7xl tracking-tight mb-8 text-blueGray-900 dark:text-white">
-                    The days of unsafe journeys and blindsiding conditions have finally <span className="text-blue-500">come to an end.</span>
+                    The days of unsafe journeys and blindsiding conditions have finally <span className="text-blue-500">come to an end.</span>⛷️
                 </h1>
                 <button className="focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 rounded-md px-4 py-2 bg-blue-100 hover:bg-blue-50 text-blueGray-700 hover:text-blueGray-600 font-bold text-lg transition duration-150">View Today's Conditions</button>
             </div>
@@ -19,7 +19,7 @@ export default function Home() {
                 <FeatureCard title="Accurate Predictions Based on Decades of Data  📅" content="Historical data on weather and collisions is analyzed real-time to bring fast and accurate results." color="purple"/>
             </div>
             <div className="mb-24">
-                <h3 className="font-bold text-blueGray-700 text-3xl mb-4">The Passes We're Currently<br/> Watching.</h3>
+                <h3 className="font-bold text-blueGray-700 text-3xl mb-4">The Passes We're Currently<br/> Watching</h3>
                 <div className="flex shadow-lg rounded-md flex-wrap">
                     <div className="w-full lg:w-1/2 py-6 px-8">
                         <h1 className="text-lg font-bold text-blueGray-900">Snoqualmie Pass</h1>
