@@ -16,11 +16,11 @@ export default function Container({ children }) {
                 <nav className="sticky-nav flex justify-between items-center max-w-7xl w-full p-8 my-0 md:my-8 mx-auto bg-white dark:bg-black bg-opacity-60">
                     <div>
                         <NextLink href="/">
-                            <a className="p-1 sm:p-4 text-blueGray-900 dark:text-gray-100">
+                            <a className="p-1 sm:p-4 text-blueGray-900 dark:text-gray-100 font-bold">
                                 S2S
                             </a>
                         </NextLink>
-                        <NextLink href="/">
+                        <NextLink href="/destination/summit-at-snoqualmie">
                             <a className="p-1 sm:p-4 text-blueGray-900 dark:text-gray-100">
                                 Today's Conditions
                             </a>
