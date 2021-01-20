@@ -1,6 +1,8 @@
 import Container from "../../components/Container";
-function summitAtSnoqualmie() {
+function SummitAtSnoqualmie() {
     return <Container>
-        hi
+        <p className="text-black">hi</p>
     </Container>
 }
+
+export default SummitAtSnoqualmie;

@@ -10,7 +10,7 @@ export default function Home() {
                 <h1 className="font-extrabold text-7xl tracking-tight mb-8 text-blueGray-900 dark:text-white">
                     The days of unsafe journeys and blindsiding conditions have finally <span className="text-blue-500">come to an end.</span>⛷️
                 </h1>
-                <button className="focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 rounded-md px-4 py-2 bg-blue-100 hover:bg-blue-50 text-blueGray-700 hover:text-blueGray-600 font-bold text-lg transition duration-150">View Today's Conditions</button>
+                <Link href="/destination/summit-at-snoqualmie"><button className="focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 rounded-md px-4 py-2 bg-blue-100 hover:bg-blue-50 text-blueGray-700 hover:text-blueGray-600 font-bold text-lg transition duration-150">View Today's Conditions</button></Link>
             </div>
             <div className="mb-24 flex justify-center flex-wrap">
                 <FeatureCard title="Accurate Predictions Based on Decades of Data  📅" content="Historical data on weather and collisions is analyzed real-time to bring fast and accurate results." color="pink"/>
@@ -23,7 +23,7 @@ export default function Home() {
                 <div className="flex shadow-lg rounded-md flex-wrap">
                     <div className="w-full lg:w-1/2 py-6 px-8">
                         <h1 className="text-lg font-bold text-blueGray-900">Snoqualmie Pass</h1>
-                        <h1 className="text-lg text-blueGray-700">Snoqualmie Pass is a mountain pass that carries Interstate 90 through the Cascade Range in the U.S. state of Washington. The pass summit is at an elevation of 3,015 feet, on the county line between Kittitas County and King County. <Link href="/"><a className="text-blue-600"><small>View Today's Conditions</small></a></Link></h1>
+                        <h1 className="text-lg text-blueGray-700">Snoqualmie Pass is a mountain pass that carries Interstate 90 through the Cascade Range in the U.S. state of Washington. The pass summit is at an elevation of 3,015 feet, on the county line between Kittitas County and King County. <Link href="/destination/summit-at-snoqualmie"><a className="text-blue-600"><small>View Today's Conditions</small></a></Link></h1>
                     </div>
                     <div className="w-full lg:w-1/2" >
                         <img className="rounded-md" alt="snoqualmie pass" src="https://beautifulwashington.com/images/summit-ski-area/summit-ski-area-2.jpg"/>
