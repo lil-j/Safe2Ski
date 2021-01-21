@@ -1,6 +1,9 @@
 import Container from "../../components/Container";
 import moment from "moment";
 import FeatureCard from "../../components/FeatureCard";
+
+import {supabase} from "../../lib/api";
+
 function SummitAtSnoqualmie({ lastUpdated, currentConditions }) {
     return <Container>
         <div className="flex flex-col justify-center items-start max-w-4xl mx-auto mb-16">
@@ -23,13 +26,46 @@ function SummitAtSnoqualmie({ lastUpdated, currentConditions }) {
 }
 
 export async function getStaticProps() {
-    // Call an external API endpoint to get posts
+    const currentConditionsRes = await fetch('https://www.wsdot.com/Traffic/api/MountainPassConditions/MountainPassConditionsREST.svc/GetMountainPassConditionAsJon?AccessCode=de941f67-18e0-4909-83cb-a5d68904821e&PassConditionID=11')
+    const currentConditions = await currentConditionsRes.json()
+    const adjustedTemp = (currentConditions.TemperatureInFahrenheit-3)
+    const weeklyForecastRes = await fetch('https://api.weather.gov/gridpoints/PDT/61,195/forecast', {
+        headers: {
+            "user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
+        }
+    })
+    const weeklyForecast = await weeklyForecastRes.json();
+    console.log(currentConditions)
+    console.log(weeklyForecast.properties.periods[0])
+    let { data: SnoqualmiePass, error } = await supabase
+        .from('SnoqualmiePass')
+        .select('*')
+        .gt('TAVG', adjustedTemp-2)
+        .lt('TAVG', adjustedTemp+2)
+        // .in('WEATHER', ["snow", "SNOW", "snowy","SNOWY", "snowing", "SNOWING"])
+
+    let snowIncrement = 0;
+    let heavySnowIncrement = 0;
+    let avalancheIncrement = 0;
+    let losingTractionIncrement = 0;
+    let collisionIncrement = 0;
+    SnoqualmiePass.forEach(closure => {
+        // console.log(closure.WEATHER.toLowerCase().includes("snow"))
+        if (closure.WEATHER.toLowerCase().includes("snow")) snowIncrement++;
+        if (closure.WEATHER.toLowerCase().includes("heavy")) heavySnowIncrement++;
+        if (closure.REMARKS.toLowerCase().includes("avalanche")) avalancheIncrement++;
+        if (closure.REMARKS.toLowerCase().includes("traction")) losingTractionIncrement++;
+        if (closure.REMARKS.toLowerCase().includes("collision") || closure.REMARKS.toLowerCase().includes("collide")) collisionIncrement++;
+
+    })
+    console.log("Full Length: " + SnoqualmiePass.length)
+    console.log(snowIncrement)
+    console.log(heavySnowIncrement)
+    console.log(avalancheIncrement)
+    console.log(losingTractionIncrement)
+    console.log(collisionIncrement)
+    // console.log(SnoqualmiePass)
     const lastUpdated = moment().format();
-    const res = await fetch('https://www.wsdot.com/Traffic/api/MountainPassConditions/MountainPassConditionsREST.svc/GetMountainPassConditionAsJon?AccessCode=de941f67-18e0-4909-83cb-a5d68904821e&PassConditionID=11')
-    const currentConditions = await res.json()
-    // console.log(currentConditions)
-    // By returning { props: { posts } }, the Blog component
-    // will receive `posts` as a prop at build time
     return {
         props: {
             currentConditions,lastUpdated
