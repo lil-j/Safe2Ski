@@ -19,7 +19,7 @@ export default function Footer() {
                     <Link href="/">
                         <a className="text-blueGray-500 hover:text-blueGray-600 transition">Home</a>
                     </Link>
-                    <Link href="/destination/summmit-at-snoqualmie">
+                    <Link href="/destination/summit-at-snoqualmie">
                         <a className="text-blueGray-500 hover:text-blueGray-600 transition">
                             Snoqualmie Conditions
                         </a>
