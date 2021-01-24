@@ -3,9 +3,10 @@ import moment from "moment";
 import FeatureCard from "../../components/FeatureCard";
 import Score from "../../components/Score";
 import Note from "../../components/Note";
+import ForecastCard from "../../components/ForecastCard";
 import {supabase} from "../../lib/api";
 
-function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes }) {
+function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes, weeklyForecast }) {
     return <Container>
         <div className="flex flex-col justify-center items-start max-w-4xl mx-auto mb-16">
             <div className="mb-24">
@@ -27,18 +28,27 @@ function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes
                         }
                     </div>
                 </div>
-                <div className="text-blueGray-700 mt-3">{SafetyScore < 80 ? "Conditions are not optimal, proceed at your own risk." : SafetyScore  > 90 ? "Conditions are relatively safe! Enjoy the day." : "Conditions are moderately safe, however there is still some risk."}</div>
+                <div className="text-blueGray-700 mt-3 text-lg">{SafetyScore < 80 ? "Conditions are not optimal, proceed at your own risk." : SafetyScore  > 90 ? "Conditions are relatively safe! Enjoy the day." : "Conditions are moderately safe, however there is still some risk."}</div>
             </div>
             <div className="mb-24">
                 <h2 className="text-xl font-bold text-blue-700">All Current Conditions</h2>
                 <div className="flex flex-wrap">
                     <FeatureCard title="Road Quality 🛣️" content={currentConditions.RoadCondition} color="yellow"/>
-                    <FeatureCard title="Restrictions 🚫" content={currentConditions.RestrictionTwo.RestrictionText == "No restrictions" ? currentConditions.RestrictionOne.RestrictionText : `${currentConditions.RestrictionOne.RestrictionText} and ${currentConditions.RestrictionTwo.RestrictionText}`} color="cyan"/>
-                    <FeatureCard title="Temperature 🌡️" content={currentConditions.TemperatureInFahrenheit} color="purple"/>
+                    <FeatureCard title="Restrictions 🚫" content={currentConditions.RestrictionTwo.RestrictionText == "No restrictions" ? currentConditions.RestrictionOne.RestrictionText : <><strong>EASTBOUND:</strong> {currentConditions.RestrictionOne.RestrictionText}  <br/><strong>WESTBOUND:</strong> {currentConditions.RestrictionTwo.RestrictionText}</>} color="cyan"/>
+                    <FeatureCard title="Temperature 🌡️" content={currentConditions.TemperatureInFahrenheit + "° Fahrenheit"} color="purple"/>
                     <FeatureCard title="Weather ☁" content={currentConditions.WeatherCondition} color="pink"/>
                 </div>
             </div>
-
+            <div className="mb-24">
+                <h2 className="text-xl font-bold text-blue-700 mb-2">Forecasted Weather</h2>
+                <div className="flex flex-wrap -m-2">
+                    {
+                        weeklyForecast.map((forecast) => (
+                            <ForecastCard forecast={forecast}/>
+                        ))
+                    }
+                </div>
+            </div>
             <small className="text-blueGray-500 dark:text-white italic">Last Updated: {lastUpdated}</small>
         </div>
     </Container>
@@ -166,7 +176,7 @@ export async function getStaticProps() {
     const lastUpdated = moment().format();
     return {
         props: {
-            currentConditions,lastUpdated, SafetyScore, notes
+            currentConditions,lastUpdated, weeklyForecast:weeklyForecast.properties.periods, SafetyScore, notes
         },
         revalidate:30
     }
