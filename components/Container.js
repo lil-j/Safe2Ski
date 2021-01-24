@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 // import { useTheme } from 'next-themes';
 import NextLink from 'next/link';
 import Twemoji from 'react-twemoji';
-// import Footer from '@/components/Footer';
+import Footer from './Footer';
 
 export default function Container({ children }) {
     const [mounted, setMounted] = useState(false);
@@ -29,7 +29,7 @@ export default function Container({ children }) {
                 </nav>
                 <main className="flex flex-col justify-center bg-white dark:bg-black px-8">
                     {children}
-                    {/*<Footer />*/}
+                    <Footer />
                 </main>
             </div>
     );
