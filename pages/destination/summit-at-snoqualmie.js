@@ -1,6 +1,7 @@
 import Container from "../../components/Container";
 import moment from "moment";
 import FeatureCard from "../../components/FeatureCard";
+import Score from "../../components/Score";
 
 import {supabase} from "../../lib/api";
 
@@ -14,7 +15,7 @@ function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes
             <div className="mb-24">
                 <div className="text-center">
                     <p className="text-blueGray-500 dark:text-white uppercase tracking-widest">Current Safety Score</p>
-                    <h2 className="font-bold text-5xl text-blueGray-800">{SafetyScore}</h2>
+                    <Score SafetyScore={SafetyScore}/>
                 </div>
 
             </div>

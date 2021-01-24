@@ -19,3 +19,10 @@ html {
   line-height: 1.5;
   scroll-behavior: smooth;
 }
+
+.center-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
