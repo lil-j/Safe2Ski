@@ -4,7 +4,7 @@ import FeatureCard from "../../components/FeatureCard";
 
 import {supabase} from "../../lib/api";
 
-function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore }) {
+function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes }) {
     return <Container>
         <div className="flex flex-col justify-center items-start max-w-4xl mx-auto mb-16">
             <div className="mb-24">
@@ -12,7 +12,11 @@ function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore }) {
                 <h1 className="text-7xl font-extrabold text-blue-900">Snoqualmie Pass Road & Weather Conditions</h1>
             </div>
             <div className="mb-24">
-                <h2 className="font-bold text-5xl text-blueGray-800">{SafetyScore}</h2>
+                <div className="text-center">
+                    <p className="text-blueGray-500 dark:text-white uppercase tracking-widest">Current Safety Score</p>
+                    <h2 className="font-bold text-5xl text-blueGray-800">{SafetyScore}</h2>
+                </div>
+
             </div>
             <div className="mb-24">
                 <h2 className="text-xl font-bold text-blue-700">Current Conditions</h2>
@@ -33,7 +37,7 @@ export async function getStaticProps() {
 
     const currentConditionsRes = await fetch('https://www.wsdot.com/Traffic/api/MountainPassConditions/MountainPassConditionsREST.svc/GetMountainPassConditionAsJon?AccessCode=de941f67-18e0-4909-83cb-a5d68904821e&PassConditionID=11')
     const currentConditions = await currentConditionsRes.json()
-    const adjustedTemp = (currentConditions.TemperatureInFahrenheit-3)
+    const adjustedTemp = (currentConditions.TemperatureInFahrenheit-2)
     const weeklyForecastRes = await fetch('https://api.weather.gov/gridpoints/PDT/61,195/forecast', {
         headers: {
             "user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
@@ -61,7 +65,6 @@ export async function getStaticProps() {
         if (closure.REMARKS.toLowerCase().includes("avalanche")) avalancheIncrement++;
         if (closure.REMARKS.toLowerCase().includes("traction")) losingTractionIncrement++;
         if (closure.REMARKS.toLowerCase().includes("collision") || closure.REMARKS.toLowerCase().includes("collide")) collisionIncrement++;
-
     })
     // console.log("Full Length: " + SnoqualmiePass.length)
     // console.log(snowIncrement)
@@ -69,20 +72,58 @@ export async function getStaticProps() {
     // console.log(avalancheIncrement)
     // console.log(losingTractionIncrement)
     // console.log(collisionIncrement)
-
+    let notes = []
     if(currentConditions.WeatherCondition.toLowerCase().includes("snow")) {
         SafetyScore-=10;
+        notes.push({
+            postive:false,
+            note:"It is currently snowing."
+        })
         if (currentConditions.WeatherCondition.toLowerCase().includes("heavy")) {
             SafetyScore-=10;
+            notes[0].note = "It is currently snowing heavily."
         }
+    } else if (currentConditions.WeatherCondition.toLowerCase().includes("rain")) {
+        SafetyScore-=5;
+        notes.push({
+            postive:false,
+            note:"It is currently raining."
+        })
+        if (currentConditions.WeatherCondition.toLowerCase().includes("heavy")) {
+            SafetyScore-=5;
+            notes[0].note = "It is currently snowing heavily."
+        }
+    } else {
+        notes.push({
+            postive:true,
+            note:`The weather is safe for driving. (${currentConditions.WeatherCondition})`
+        })
     }
 
-    if(!currentConditions.RoadCondition.toLowerCase().includes("bare and wet")) {
-        SafetyScore-=15;
+    if(!currentConditions.RoadCondition.toLowerCase().includes("bare and dry")) {
+        SafetyScore-=10;
+        notes.push({
+            postive:false,
+            note:"Road conditions are not optimal."
+        })
+    } else {
+        notes.push({
+            postive:true,
+            note:"Road conditions are bare and dry!"
+        })
     }
 
     if(currentConditions.RestrictionOne.RestrictionText !== "No restrictions" || currentConditions.RestrictionTwo.RestrictionText !== "No restrictions") {
         SafetyScore-=20;
+        notes.push({
+            postive:false,
+            note:"Driving restrictions are currently imposed on the pass."
+        })
+    } else {
+        notes.push({
+            postive:true,
+            note:"There are no driving restriction imposed!"
+        })
     }
 
     if(weeklyForecast.properties.periods[0].shortForecast.toLowerCase().includes("snow")) {
@@ -90,17 +131,30 @@ export async function getStaticProps() {
         if(weeklyForecast.properties.periods[0].shortForecast.toLowerCase().includes("light")) {
             SafetyScore+=10;
         }
+        notes.push({
+            postive:false,
+            note:`Snow is forecasted for later ${weeklyForecast.properties.periods[0].name.toLowerCase()}.`
+        })
+    } else {
+        notes.push({
+            postive:true,
+            note:"The weather forecast doesn't call for snow in the near future."
+        })
     }
     // console.log(parseInt(weeklyForecast.properties.periods[0].windSpeed.split(' ')[0]))
     if(parseInt(weeklyForecast.properties.periods[0].windSpeed.split(' ')[0]) >= 25) {
         SafetyScore-=15
+        notes.push({
+            postive:false,
+            note:`The wind is currently moving at faster than 25mph.`
+        })
     }
-
+    console.log(adjustedTemp)
     console.log(SafetyScore)
     const lastUpdated = moment().format();
     return {
         props: {
-            currentConditions,lastUpdated, SafetyScore
+            currentConditions,lastUpdated, SafetyScore, notes
         },
         revalidate:30
     }
