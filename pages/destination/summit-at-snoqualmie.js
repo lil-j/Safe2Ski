@@ -2,7 +2,7 @@ import Container from "../../components/Container";
 import moment from "moment";
 import FeatureCard from "../../components/FeatureCard";
 import Score from "../../components/Score";
-
+import Note from "../../components/Note";
 import {supabase} from "../../lib/api";
 
 function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes }) {
@@ -12,12 +12,21 @@ function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes
                 <p className="text-blueGray-500 dark:text-white uppercase tracking-widest">{moment().format('MMMM Do YYYY')}</p>
                 <h1 className="text-7xl font-extrabold text-blue-900">Snoqualmie Pass Road & Weather Conditions</h1>
             </div>
-            <div className="mb-24">
-                <div className="text-center">
-                    <p className="text-blueGray-500 dark:text-white uppercase tracking-widest">Current Safety Score</p>
+            <div className="mb-24 flex flex-wrap items-center -m-2">
+                <div className="text-center w-full lg:w-1/4 px-2">
+                    <p className="text-blueGray-900 dark:text-white font-bold">Current Safety Score</p>
+                    <br/>
                     <Score SafetyScore={SafetyScore}/>
                 </div>
-
+                <div className="px-2 w-full lg:w-3/4">
+                    <div className="flex flex-wrap -mx-2">
+                        {
+                            notes.map(note => (
+                                <Note positive={note.positive} note={note.note}/>
+                            ))
+                        }
+                    </div>
+                </div>
             </div>
             <div className="mb-24">
                 <h2 className="text-xl font-bold text-blue-700">Current Conditions</h2>
@@ -77,7 +86,7 @@ export async function getStaticProps() {
     if(currentConditions.WeatherCondition.toLowerCase().includes("snow")) {
         SafetyScore-=10;
         notes.push({
-            postive:false,
+            positive:false,
             note:"It is currently snowing."
         })
         if (currentConditions.WeatherCondition.toLowerCase().includes("heavy")) {
@@ -87,7 +96,7 @@ export async function getStaticProps() {
     } else if (currentConditions.WeatherCondition.toLowerCase().includes("rain")) {
         SafetyScore-=5;
         notes.push({
-            postive:false,
+            positive:false,
             note:"It is currently raining."
         })
         if (currentConditions.WeatherCondition.toLowerCase().includes("heavy")) {
@@ -96,7 +105,7 @@ export async function getStaticProps() {
         }
     } else {
         notes.push({
-            postive:true,
+            positive:true,
             note:`The weather is safe for driving. (${currentConditions.WeatherCondition})`
         })
     }
@@ -104,12 +113,12 @@ export async function getStaticProps() {
     if(!currentConditions.RoadCondition.toLowerCase().includes("bare and dry")) {
         SafetyScore-=10;
         notes.push({
-            postive:false,
+            positive:false,
             note:"Road conditions are not optimal."
         })
     } else {
         notes.push({
-            postive:true,
+            positive:true,
             note:"Road conditions are bare and dry!"
         })
     }
@@ -117,12 +126,12 @@ export async function getStaticProps() {
     if(currentConditions.RestrictionOne.RestrictionText !== "No restrictions" || currentConditions.RestrictionTwo.RestrictionText !== "No restrictions") {
         SafetyScore-=20;
         notes.push({
-            postive:false,
+            positive:false,
             note:"Driving restrictions are currently imposed on the pass."
         })
     } else {
         notes.push({
-            postive:true,
+            positive:true,
             note:"There are no driving restriction imposed!"
         })
     }
@@ -133,12 +142,12 @@ export async function getStaticProps() {
             SafetyScore+=10;
         }
         notes.push({
-            postive:false,
+            positive:false,
             note:`Snow is forecasted for later ${weeklyForecast.properties.periods[0].name.toLowerCase()}.`
         })
     } else {
         notes.push({
-            postive:true,
+            positive:true,
             note:"The weather forecast doesn't call for snow in the near future."
         })
     }
