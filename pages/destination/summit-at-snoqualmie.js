@@ -11,11 +11,11 @@ function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes
         <div className="flex flex-col justify-center items-start max-w-4xl mx-auto mb-16">
             <div className="mb-24">
                 <p className="text-blueGray-500 dark:text-white uppercase tracking-widest">{moment().format('MMMM Do YYYY')}</p>
-                <h1 className="text-7xl font-extrabold text-blue-900">Snoqualmie Pass Road & Weather Conditions</h1>
+                <h1 className="text-5xl lg:text-7xl font-extrabold text-blue-900">Snoqualmie Pass Road & Weather Conditions</h1>
             </div>
             <div className="mb-24 flex flex-wrap items-center -m-2">
                 <div className="text-center w-full lg:w-1/4 px-2">
-                    <p className="text-blueGray-900 dark:text-white font-bold">Current Safety Score</p>
+                    <p className="text-blueGray-900 dark:text-white font-bold text-lg">Current Safety Score</p>
                     <br/>
                     <Score SafetyScore={SafetyScore}/>
                 </div>

@@ -7,7 +7,7 @@ export default function Home() {
         <div className="flex flex-col justify-center items-start max-w-4xl mx-auto mb-16">
             <div className="text-center mb-24">
                 <p className="text-blueGray-500 dark:text-white uppercase tracking-widest">Safe2Ski</p>
-                <h1 className="font-extrabold text-7xl tracking-tight mb-8 text-blueGray-900 dark:text-white">
+                <h1 className="font-extrabold text-5xl lg:text-7xl tracking-tight mb-8 text-blueGray-900 dark:text-white">
                     The days of unsafe journeys and blindsiding conditions have finally <span className="text-blue-500">come to an end.</span>⛷️
                 </h1>
                 <Link href="/destination/summit-at-snoqualmie"><button className="focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 rounded-md px-4 py-2 bg-blue-100 hover:bg-blue-50 text-blueGray-700 hover:text-blueGray-600 font-bold text-lg transition duration-150">View Today's Conditions</button></Link>
