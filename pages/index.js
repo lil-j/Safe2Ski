@@ -13,10 +13,10 @@ export default function Home() {
                 <Link href="/destination/summit-at-snoqualmie"><button className="focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 rounded-md px-4 py-2 bg-blue-100 hover:bg-blue-50 text-blueGray-700 hover:text-blueGray-600 font-bold text-lg transition duration-150">View Today's Conditions</button></Link>
             </div>
             <div className="mb-24 flex justify-center flex-wrap">
-                <FeatureCard title="Accurate Predictions Based on Decades of Data  📅" content="Historical data on weather and collisions is analyzed real-time to bring fast and accurate results." color="pink"/>
-                <FeatureCard title="Accurate Predictions Based on Decades of Data  📅" content="Historical data on weather and collisions is analyzed real-time to bring fast and accurate results." color="green"/>
-                <FeatureCard title="Accurate Predictions Based on Decades of Data  📅" content="Historical data on weather and collisions is analyzed real-time to bring fast and accurate results." color="cyan"/>
-                <FeatureCard title="Accurate Predictions Based on Decades of Data  📅" content="Historical data on weather and collisions is analyzed real-time to bring fast and accurate results." color="purple"/>
+                <FeatureCard title="Accurate Predictions Based on Decades of Data  📅" content="Historical data on weather and collisions is analyzed and factored in real-time to bring fast and accurate results." color="pink"/>
+                <FeatureCard title="A Simple Score to Make Your Decision Trouble-Free  ✅" content="The days of endless contemplating and confusion on whether or not you should go have finally come ot an end." color="green"/>
+                <FeatureCard title="View Road Quality and Conditions With Ease 😌" content="Stay up-to-date with the latest information from the department of transportation, all in the blink of an eye." color="cyan"/>
+                <FeatureCard title="Prepare For Next Week At a Glance 😎" content="Powered by the National Weather Agency, view all information on snowfall, wind, and everything in-between." color="purple"/>
             </div>
             <div className="mb-24">
                 <h3 className="font-bold text-blueGray-700 text-3xl mb-4">The Passes We're Currently<br/> Watching</h3>
