@@ -27,7 +27,7 @@ export default function Footer() {
                     <ExternalLink href="https://twitter.com/notlilj">
                         My Twitter
                     </ExternalLink>
-                    <ExternalLink href="https://github.com/it-lilj">GitHub</ExternalLink>
+                    <ExternalLink href="https://github.com/lil-j">GitHub</ExternalLink>
                     <ExternalLink href="https://lilj.dev">
                         Personal Site
                     </ExternalLink>
