@@ -66,8 +66,8 @@ export async function getStaticProps() {
         }
     })
     const weeklyForecast = await weeklyForecastRes.json();
-    console.log(currentConditions)
-    console.log(weeklyForecast.properties.periods[0])
+    // console.log(currentConditions)
+    // console.log(weeklyForecast.properties.periods[0])
     let { data: SnoqualmiePass, error } = await supabase
         .from('SnoqualmiePass')
         .select('*')
@@ -123,7 +123,10 @@ export async function getStaticProps() {
     }
 
     if(!currentConditions.RoadCondition.toLowerCase().includes("bare and dry")) {
-        SafetyScore-=10;
+        SafetyScore-=15;
+        if(currentConditions.RoadCondition.toLowerCase().includes("bare")) {
+            SafetyScore+=5;
+        }
         notes.push({
             positive:false,
             note:"Road conditions are not optimal"
@@ -171,8 +174,8 @@ export async function getStaticProps() {
             note:`The wind is currently moving at faster than 25mph`
         })
     }
-    console.log(adjustedTemp)
-    console.log(SafetyScore)
+    // console.log(adjustedTemp)
+    // console.log(SafetyScore)
     const lastUpdated = moment().format();
     return {
         props: {
