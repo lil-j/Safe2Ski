@@ -12,7 +12,7 @@ function About() {
                 <h3 className="font-bold text-2xl text-blueGray-800">Built on Decades of Closure Data</h3>
                 <p className="text-blueGray-700">Through an analysis of the last 1000s of pass closures, a list of 'Perfect Conditions' have been created consisting of
                     4 primary categories: Weather, road conditions, upcoming forecasts, and road restrictions. Each item has a different weight set based on its conviction in threatening safety and travel risk.
-                    Every 30 seconds of web traffic, this SafetyScore is revalidated using the most up-to-date information available (listed below).</p>
+                    Every 30 seconds of web traffic, this SafetyScore is revalidated using the most up-to-date information available.</p>
             </div>
             <div className="mb-6">
                 <h3 className="font-bold text-2xl text-blueGray-800">Let's Talk About The Score</h3>
