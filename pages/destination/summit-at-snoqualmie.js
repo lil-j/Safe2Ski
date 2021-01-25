@@ -28,7 +28,7 @@ function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes
                         }
                     </div>
                 </div>
-                <div className="text-blueGray-700 mt-3 text-lg">{SafetyScore < 80 ? "Conditions are not optimal, proceed at your own risk." : SafetyScore  > 90 ? "Conditions are relatively safe! Enjoy the day." : "Conditions are moderately safe, however there is still some risk."}</div>
+                <div className="text-blueGray-700 mt-3 text-lg">{SafetyScore < 70 ? "Conditions are not optimal, proceed at your own risk." : SafetyScore  > 90 ? "Conditions are relatively safe! Enjoy the day." : "Conditions are moderately safe, however there is still some risk."}</div>
             </div>
             <div className="mb-24">
                 <h2 className="text-xl font-bold text-blue-700">All Current Conditions</h2>
@@ -125,7 +125,7 @@ export async function getStaticProps() {
     if(!currentConditions.RoadCondition.toLowerCase().includes("bare and dry")) {
         SafetyScore-=15;
         if(currentConditions.RoadCondition.toLowerCase().includes("bare")) {
-            SafetyScore+=5;
+            SafetyScore+=10;
         }
         notes.push({
             positive:false,
@@ -140,10 +140,19 @@ export async function getStaticProps() {
 
     if(currentConditions.RestrictionOne.RestrictionText !== "No restrictions" || currentConditions.RestrictionTwo.RestrictionText !== "No restrictions") {
         SafetyScore-=20;
-        notes.push({
-            positive:false,
-            note:"Driving restrictions are currently imposed on the pass"
-        })
+        if(!weeklyForecast.properties.periods[0].shortForecast.toLowerCase().includes("required")) {
+            SafetyScore+=10;
+            notes.push({
+                positive:false,
+                note:"Driving restrictions are currently imposed on the pass (nothing required)"
+            })
+        } else {
+            notes.push({
+                positive:false,
+                note:"Driving restrictions are currently imposed on the pass"
+            })
+        }
+
     } else {
         notes.push({
             positive:true,

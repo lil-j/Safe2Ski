@@ -17,7 +17,7 @@ function About() {
             <div className="mb-6">
                 <h3 className="font-bold text-2xl text-blueGray-800">Let's Talk About The Score</h3>
                 <p className="text-blueGray-700">While the score is out of 100, there are three primary ranges you should look out for split into the colors green, yellow, and red.
-                    The red range, or any score below 80 is recognized as the 'high risk' region. Scores this low can be a result of a multitude high risk events. The yellow range represents any score between 80 and 90.
+                    The red range, or any score below 70 is recognized as the 'high risk' region. Scores this low can be a result of a multitude high risk events. The yellow range represents any score between 70 and 90.
                     Also known as 'medium risk', it is typically a result of only one or two low-risk events such as light snow or rain. Lastly, the green range, or any score above 90 represents a low risk commute.
                     These are the safest days to go because they are often a result of high-quality roads, clear weather, and clear forecasts.
                 </p>
