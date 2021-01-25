@@ -129,7 +129,6 @@ export async function getStaticProps() {
         }
         if(currentConditions.RoadCondition.toLowerCase().includes("required")) {
             SafetyScore-=10;
-
             if(currentConditions.RoadCondition.toLowerCase().includes("chains")){
                 notes.push({
                     positive:false,
