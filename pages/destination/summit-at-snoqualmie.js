@@ -7,7 +7,7 @@ import ForecastCard from "../../components/ForecastCard";
 import {supabase} from "../../lib/api";
 
 function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes, weeklyForecast }) {
-    return <Container>
+    return <Container title="Snoqualmie | Safe2SKi">
         <div className="flex flex-col justify-center items-start max-w-4xl mx-auto mb-16">
             <div className="mb-24">
                 <p className="text-blueGray-500 dark:text-white uppercase tracking-widest">{moment().format('MMMM Do YYYY')}</p>
