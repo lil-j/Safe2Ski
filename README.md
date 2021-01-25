@@ -1,30 +1,9 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![banner](https://github.com/lil-j/Safe2Ski/blob/master/public/banner.png?raw=true)
+# Introducing Safe2Ski
+A data-driven approach to mastering your ski-trip commute. [Check It Out!](https://safe2ski.lilj.dev)
+## The Inspiration
+For me, going through my local ski pass has always been a struggle. With a variety of factors always impacting the decision to go, it's hard to focus on all of them at once and sitll make a responsible decision. Safe2Ski aims to solve all of these problems by taking the data and compiling it into a single score. From a set of perfect conditions determined by an analysis of decades of pass closure data- each factor (such as heavy snow, etc) has a different weight in determining the end score.
+## The Stack
+Built with Next.js & Deployed with Vercel
+## Why Next.js
+This project requires a multitude of calls to many different APIs. To simplify client-side downloads and optimize speed, this website takes advantage of **Static Generation**. Every request is made on the server-side at build time and is also set to **revalidate every 30 seconds** to keep the information up-to-date.
