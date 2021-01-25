@@ -32,8 +32,8 @@ function Score(props) {
                         // Can specify path transition in more detail, or remove it entirely
                         // pathTransition: 'none',
                         // Colors
-                        pathColor: value < 70 ? "#D2433E" : value > 90 ? "#3ED246" : "#FFEC4E",
-                        textColor: value < 70 ? "#D2433E" : value > 90 ? "#3ED246" : "#FFEC4E",
+                        pathColor: value <= 70 ? "#D2433E" : value >= 90 ? "#3ED246" : "#FFEC4E",
+                        textColor: value <= 70 ? "#D2433E" : value >= 90 ? "#3ED246" : "#FFEC4E",
                         trailColor: '#d6d6d6',
                         backgroundColor: '#3e98c7',
                     })}
