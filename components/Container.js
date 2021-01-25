@@ -9,7 +9,7 @@ export default function Container(props) {
     const router = useRouter();
     const meta = {
         title: 'Safe2Ski - An Easy Decision',
-        description: `Never stress about that ski pass again, we'll help you make the decision with ease.`,
+        description: `Never stress about driving to the ski pass again, we'll help you make the decision with ease.`,
         image: 'https://safe2ski.lilj.dev/banner.png',
         type: 'website',
         ...customMeta
