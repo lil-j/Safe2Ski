@@ -47,6 +47,11 @@ export default function Container(props) {
                                 Today's Conditions
                             </a>
                         </NextLink>
+                        <NextLink href="/about">
+                            <a className="p-1 sm:p-4 text-blueGray-900 dark:text-gray-100">
+                                About
+                            </a>
+                        </NextLink>
                     </div>
                 </nav>
                 <main className="flex flex-col justify-center bg-white dark:bg-black px-8">

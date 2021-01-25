@@ -17,16 +17,18 @@ export default function Footer() {
             <hr className="w-full border-1 border-blueGray-200 dark:border-blueGray-800 mb-8"/>
             <div className="w-full max-w-2xl flex flex-row space-x-5 justify-center">
                     <Link href="/">
-                        <a className="text-blueGray-500 hover:text-blueGray-600 transition">Home</a>
+                        <a className="text-blue-500 hover:text-blue-600 transition">Home</a>
                     </Link>
                     <Link href="/destination/summit-at-snoqualmie">
-                        <a className="text-blueGray-500 hover:text-blueGray-600 transition">
+                        <a className="text-blue-500 hover:text-blue-600 transition">
                             Snoqualmie Conditions
                         </a>
                     </Link>
-                    <ExternalLink href="https://twitter.com/notlilj">
-                        My Twitter
-                    </ExternalLink>
+                    <Link href="/about">
+                        <a className="text-blue-500 hover:text-blue-600 transition">
+                            About
+                        </a>
+                    </Link>
                     <ExternalLink href="https://github.com/lil-j">GitHub</ExternalLink>
                     <ExternalLink href="https://lilj.dev">
                         Personal Site
