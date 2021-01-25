@@ -129,10 +129,18 @@ export async function getStaticProps() {
         }
         if(currentConditions.RoadCondition.toLowerCase().includes("required")) {
             SafetyScore-=10;
-            notes.push({
-                positive:false,
-                note:"Road conditions require equipment (see below)"
-            })
+
+            if(currentConditions.RoadCondition.toLowerCase().includes("chains")){
+                notes.push({
+                    positive:false,
+                    note:"Road conditions require chains"
+                })
+            } else {
+                notes.push({
+                    positive:false,
+                    note:"Road conditions require equipment (see below)"
+                })
+            }
         } else {
             notes.push({
                 positive:false,
