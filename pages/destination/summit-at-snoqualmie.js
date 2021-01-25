@@ -148,13 +148,13 @@ export async function getStaticProps() {
 
     if(currentConditions.RestrictionOne.RestrictionText !== "No restrictions" || currentConditions.RestrictionTwo.RestrictionText !== "No restrictions") {
         SafetyScore-=20;
-        if(!weeklyForecast.properties.periods[0].shortForecast.toLowerCase().includes("required")) {
-            SafetyScore+=10;
+        if(weeklyForecast.properties.periods[0].shortForecast.toLowerCase().includes("required")) {
             notes.push({
                 positive:false,
-                note:"Driving restrictions are currently imposed on the pass (nothing required)"
+                note:"Driving restrictions are currently imposed on the pass"
             })
         } else {
+            SafetyScore+=10;
             notes.push({
                 positive:false,
                 note:"Driving restrictions are currently imposed on the pass"
