@@ -122,7 +122,7 @@ export async function getStaticProps() {
         })
     }
 
-    if(!currentConditions.RoadCondition.toLowerCase().includes("bare and dry")) {
+    if(!currentConditions.RoadCondition.toLowerCase().includes("bare and dry") || currentConditions.RoadCondition.toLowerCase().includes("bare and wet")) {
         SafetyScore-=15;
         if(currentConditions.RoadCondition.toLowerCase().includes("bare")) {
             SafetyScore+=10;
@@ -149,7 +149,7 @@ export async function getStaticProps() {
     } else {
         notes.push({
             positive:true,
-            note:"Road conditions are bare and dry!"
+            note:"Road conditions are good!"
         })
     }
 
