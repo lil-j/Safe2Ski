@@ -123,8 +123,17 @@ export async function getStaticProps() {
 
     if(!currentConditions.RoadCondition.toLowerCase().includes("bare and dry") || currentConditions.RoadCondition.toLowerCase().includes("bare and wet")) {
         SafetyScore-=15;
-        if(currentConditions.RoadCondition.toLowerCase().includes("bare")) {
+        if(currentConditions.RoadCondition.toLowerCase().includes("bare and wet")) {
             SafetyScore+=10;
+            notes.push({
+                positive:false,
+                note:"Road conditions are bare and wet"
+            })
+        }  else {
+            notes.push({
+                positive:false,
+                note:"Road conditions are not optimal"
+            })
         }
         if(currentConditions.RoadCondition.toLowerCase().includes("required")) {
             SafetyScore-=10;
@@ -139,11 +148,6 @@ export async function getStaticProps() {
                     note:"Road conditions require equipment (see below)"
                 })
             }
-        } else {
-            notes.push({
-                positive:false,
-                note:"Road conditions are not optimal"
-            })
         }
     } else {
         notes.push({
