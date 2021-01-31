@@ -55,8 +55,7 @@ function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes
 }
 
 export async function getStaticProps() {
-    let SafetyScore = 100;
-
+    let SafetyScore = 100
     const currentConditionsRes = await fetch('https://www.wsdot.com/Traffic/api/MountainPassConditions/MountainPassConditionsREST.svc/GetMountainPassConditionAsJon?AccessCode=de941f67-18e0-4909-83cb-a5d68904821e&PassConditionID=11')
     const currentConditions = await currentConditionsRes.json()
     const adjustedTemp = (currentConditions.TemperatureInFahrenheit-2)
