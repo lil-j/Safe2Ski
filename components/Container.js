@@ -14,7 +14,6 @@ export default function Container(props) {
         type: 'website',
         ...customMeta
     };
-    console.log(router.asPath)
     return (
             <div className="bg-white dark:bg-black">
                 <Head>
