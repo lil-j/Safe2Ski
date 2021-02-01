@@ -14,6 +14,7 @@ export default function Container(props) {
         type: 'website',
         ...customMeta
     };
+    console.log(router.asPath)
     return (
             <div className="bg-white dark:bg-black">
                 <Head>
@@ -38,17 +39,17 @@ export default function Container(props) {
                 <nav className="sticky-nav flex justify-between items-center max-w-7xl w-full p-8 my-0 md:my-8 mx-auto bg-white dark:bg-black bg-opacity-60">
                     <div>
                         <NextLink href="/">
-                            <a className="p-1 sm:p-4 text-blueGray-900 dark:text-gray-100 font-bold">
+                            <a className={`p-1 sm:p-4 text-blueGray-900 dark:text-gray-100 ${router.asPath == "/" && "font-bold"}`}>
                                 S2S
                             </a>
                         </NextLink>
                         <NextLink href="/destination/summit-at-snoqualmie">
-                            <a className="p-1 sm:p-4 text-blueGray-900 dark:text-gray-100">
+                            <a className={`p-1 sm:p-4 text-blueGray-900 dark:text-gray-100 ${router.asPath == "/destination/summit-at-snoqualmie" && "font-bold"}`}>
                                 Today's Conditions
                             </a>
                         </NextLink>
                         <NextLink href="/about">
-                            <a className="p-1 sm:p-4 text-blueGray-900 dark:text-gray-100">
+                            <a className={`p-1 sm:p-4 text-blueGray-900 dark:text-gray-100 ${router.asPath == "/about" && "font-bold"}`}>
                                 About
                             </a>
                         </NextLink>
