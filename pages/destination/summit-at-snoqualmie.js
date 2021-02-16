@@ -36,7 +36,7 @@ function SummitAtSnoqualmie({ lastUpdated, currentConditions, SafetyScore, notes
                     <FeatureCard title="Road Quality 🛣️" content={currentConditions.RoadCondition} color="yellow"/>
                     <FeatureCard title="Restrictions 🚫" content={currentConditions.RestrictionTwo.RestrictionText == "No restrictions" ? currentConditions.RestrictionOne.RestrictionText : <><strong>EASTBOUND:</strong> {currentConditions.RestrictionOne.RestrictionText}  <br/><strong>WESTBOUND:</strong> {currentConditions.RestrictionTwo.RestrictionText}</>} color="cyan"/>
                     <FeatureCard title="Temperature 🌡️" content={currentConditions.TemperatureInFahrenheit + "° Fahrenheit"} color="purple"/>
-                    <FeatureCard title="Weather ☁" content={currentConditions.WeatherCondition} color="pink"/>
+                    <FeatureCard title="Weather ☁" content={currentConditions.WeatherCondition ? currentConditions.WeatherCondition : weeklyForecast[0].shortForecast} color="pink"/>
                 </div>
             </div>
             <div className="mb-24">
@@ -94,112 +94,120 @@ export async function getStaticProps() {
     // console.log(losingTractionIncrement)
     // console.log(collisionIncrement)
     let notes = []
-    if(currentConditions.WeatherCondition.toLowerCase().includes("snow")) {
-        SafetyScore-=10;
+    if (currentConditions.RestrictionOne.RestrictionText.includes("Pass Closed")) {
+        SafetyScore=1;
         notes.push({
             positive:false,
-            note:"It is currently snowing"
+            note:"Pass is closed"
         })
-        if (currentConditions.WeatherCondition.toLowerCase().includes("heavy")) {
-            SafetyScore-=10;
-            notes[0].note = "It is currently snowing heavily"
-        }
-    } else if (currentConditions.WeatherCondition.toLowerCase().includes("rain")) {
-        SafetyScore-=5;
-        notes.push({
-            positive:false,
-            note:"It is currently raining"
-        })
-        if (currentConditions.WeatherCondition.toLowerCase().includes("heavy")) {
-            SafetyScore-=5;
-            notes[0].note = "It is currently snowing heavily"
-        }
     } else {
-        notes.push({
-            positive:true,
-            note:`The weather is safe for driving. (${currentConditions.WeatherCondition})`
-        })
-    }
-
-    if(!currentConditions.RoadCondition.toLowerCase().includes("bare and dry") || currentConditions.RoadCondition.toLowerCase().includes("bare and wet")) {
-        SafetyScore-=15;
-        if(currentConditions.RoadCondition.toLowerCase().includes("bare and wet")) {
-            SafetyScore+=10;
+        if(currentConditions.WeatherCondition.toLowerCase().includes("snow")) {
+            SafetyScore-=10;
             notes.push({
                 positive:false,
-                note:"Road conditions are bare and wet"
+                note:"It is currently snowing"
             })
-        }  else {
+            if (currentConditions.WeatherCondition.toLowerCase().includes("heavy")) {
+                SafetyScore-=10;
+                notes[0].note = "It is currently snowing heavily"
+            }
+        } else if (currentConditions.WeatherCondition.toLowerCase().includes("rain")) {
+            SafetyScore-=5;
             notes.push({
                 positive:false,
-                note:"Road conditions are not optimal"
+                note:"It is currently raining"
+            })
+            if (currentConditions.WeatherCondition.toLowerCase().includes("heavy")) {
+                SafetyScore-=5;
+                notes[0].note = "It is currently snowing heavily"
+            }
+        } else {
+            notes.push({
+                positive:true,
+                note:`The weather is safe for driving. (${currentConditions.WeatherCondition})`
             })
         }
-        if(currentConditions.RoadCondition.toLowerCase().includes("required")) {
-            SafetyScore-=10;
-            if(currentConditions.RoadCondition.toLowerCase().includes("chains")){
+
+        if(!currentConditions.RoadCondition.toLowerCase().includes("bare and dry") || currentConditions.RoadCondition.toLowerCase().includes("bare and wet")) {
+            SafetyScore-=15;
+            if(currentConditions.RoadCondition.toLowerCase().includes("bare and wet")) {
+                SafetyScore+=10;
                 notes.push({
                     positive:false,
-                    note:"Road conditions require chains"
+                    note:"Road conditions are bare and wet"
                 })
-            } else {
+            }  else {
                 notes.push({
                     positive:false,
-                    note:"Road conditions require equipment (see below)"
+                    note:"Road conditions are not optimal"
                 })
             }
+            if(currentConditions.RoadCondition.toLowerCase().includes("required")) {
+                SafetyScore-=10;
+                if(currentConditions.RoadCondition.toLowerCase().includes("chains")){
+                    notes.push({
+                        positive:false,
+                        note:"Road conditions require chains"
+                    })
+                } else {
+                    notes.push({
+                        positive:false,
+                        note:"Road conditions require equipment (see below)"
+                    })
+                }
+            }
+        } else {
+            notes.push({
+                positive:true,
+                note:"Road conditions are good!"
+            })
         }
-    } else {
-        notes.push({
-            positive:true,
-            note:"Road conditions are good!"
-        })
-    }
 
-    if(currentConditions.RestrictionOne.RestrictionText !== "No restrictions" || currentConditions.RestrictionTwo.RestrictionText !== "No restrictions") {
-        SafetyScore-=20;
-        if(weeklyForecast.properties.periods[0].shortForecast.toLowerCase().includes("required")) {
+        if(currentConditions.RestrictionOne.RestrictionText !== "No restrictions" || currentConditions.RestrictionTwo.RestrictionText !== "No restrictions") {
+            SafetyScore-=20;
+            if(weeklyForecast.properties.periods[0].shortForecast.toLowerCase().includes("required")) {
+                notes.push({
+                    positive:false,
+                    note:"Driving restrictions are currently imposed on the pass"
+                })
+            } else {
+                SafetyScore+=10;
+                notes.push({
+                    positive:false,
+                    note:"Driving restrictions are currently imposed on the pass"
+                })
+            }
+
+        } else {
+            notes.push({
+                positive:true,
+                note:"There are no driving restrictions imposed!"
+            })
+        }
+
+        if(weeklyForecast.properties.periods[0].shortForecast.toLowerCase().includes("snow")) {
+            SafetyScore-=15;
+            if(weeklyForecast.properties.periods[0].shortForecast.toLowerCase().includes("light")) {
+                SafetyScore+=10;
+            }
             notes.push({
                 positive:false,
-                note:"Driving restrictions are currently imposed on the pass"
+                note:`Snow is forecasted for later ${weeklyForecast.properties.periods[0].name.toLowerCase()}`
             })
         } else {
-            SafetyScore+=10;
             notes.push({
-                positive:false,
-                note:"Driving restrictions are currently imposed on the pass"
+                positive:true,
+                note:"The weather forecast doesn't call for snow in the near future"
             })
         }
-
-    } else {
-        notes.push({
-            positive:true,
-            note:"There are no driving restrictions imposed!"
-        })
-    }
-
-    if(weeklyForecast.properties.periods[0].shortForecast.toLowerCase().includes("snow")) {
-        SafetyScore-=15;
-        if(weeklyForecast.properties.periods[0].shortForecast.toLowerCase().includes("light")) {
-            SafetyScore+=10;
+        // console.log(parseInt(weeklyForecast.properties.periods[0].windSpeed.split(' ')[0]))
+        if(parseInt(weeklyForecast.properties.periods[0].windSpeed.split(' ')[0]) >= 25) {
+            SafetyScore-=15
+            notes.push({
+                postive:false,
+                note:`The wind is currently moving at faster than 25mph`
+            })
         }
-        notes.push({
-            positive:false,
-            note:`Snow is forecasted for later ${weeklyForecast.properties.periods[0].name.toLowerCase()}`
-        })
-    } else {
-        notes.push({
-            positive:true,
-            note:"The weather forecast doesn't call for snow in the near future"
-        })
-    }
-    // console.log(parseInt(weeklyForecast.properties.periods[0].windSpeed.split(' ')[0]))
-    if(parseInt(weeklyForecast.properties.periods[0].windSpeed.split(' ')[0]) >= 25) {
-        SafetyScore-=15
-        notes.push({
-            postive:false,
-            note:`The wind is currently moving at faster than 25mph`
-        })
     }
     // console.log(adjustedTemp)
     // console.log(SafetyScore)
