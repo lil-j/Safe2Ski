@@ -30,6 +30,9 @@ export default function Footer() {
                         </a>
                     </Link>
                     <ExternalLink href="https://github.com/lil-j/Safe2Ski">GitHub</ExternalLink>
+                    <ExternalLink href="https://lilj.dev">
+                        Personal Site
+                    </ExternalLink>
             </div>
         </footer>
     );
