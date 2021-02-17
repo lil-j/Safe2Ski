@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 import Head from "next/head";
 import {useRouter} from "next/router";
 import Footer from './Footer';
-
+import Banner from "./Banner";
 export default function Container(props) {
     const { children, ...customMeta } = props;
     const router = useRouter();
@@ -35,6 +35,7 @@ export default function Container(props) {
                         <meta property="article:published_time" content={meta.date} />
                     )}
                 </Head>
+                <Banner content={<>Safe2Ski wins 9th place (runner up) in Hashnode hackathon. <a className="font-bold hover:underline" href="https://townhall.hashnode.com/vercelhashnode-hackathon-winners" target="_blank">Check it out!</a></>}/>
                 <nav className="sticky-nav flex justify-between items-center max-w-7xl w-full p-8 my-0 md:my-8 mx-auto bg-white dark:bg-black bg-opacity-60">
                     <div>
                         <NextLink href="/">
