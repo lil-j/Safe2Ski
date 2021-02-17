@@ -29,7 +29,7 @@ export default function Footer() {
                             About
                         </a>
                     </Link>
-                    <ExternalLink href="https://github.com/lil-j">GitHub</ExternalLink>
+                    <ExternalLink href="https://github.com/lil-j/Safe2Ski">GitHub</ExternalLink>
             </div>
         </footer>
     );
