@@ -61,7 +61,7 @@ export async function getStaticProps() {
     const adjustedTemp = (currentConditions.TemperatureInFahrenheit-2)
     const weeklyForecastRes = await fetch('https://api.weather.gov/gridpoints/PDT/61,195/forecast', {
         headers: {
-            "user-agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
+            "user-agent":"Mozilla/5.000000 (Macinttosh; Intel Mac OS X 11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36"
         }
     })
     const weeklyForecast = await weeklyForecastRes.json();
